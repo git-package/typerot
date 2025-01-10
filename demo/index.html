@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Interpreter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+        }
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Character Interpreter</h1>
+    <textarea id="input" placeholder="Type your encoded message here..."></textarea>
+    <button onclick="interpret()">Interpret</button>
+    <h2>Output:</h2>
+    <div id="output"></div>
+
+    <script>
+        function interpret() {
+            const input = document.getElementById('input').value;
+            let output = '';
+            const mapping = {
+                '1': 'q', '2': 'w', '3': 'e', '4': 'r', '5': 't',
+                '6': 'y', '7': 'u', '8': 'i', '9': 'o', '0': 'p',
+                '@': 'a', '#': 's', '$': 'd', '&': 'f', '*': 'g',
+                '(': 'h', ')': 'j', '’': 'k', '”': 'l', '%': 'z',
+                '-': 'x', '+': 'c', '=': 'v', '/': 'b', ';': 'n',
+                ':': 'm', ' ': ' ', '<': '.', '>': ',', '^': ''
+            };
+
+            let capitalizeNext = false;
+            for (let char of input) {
+                if (char === '^') {
+                    capitalizeNext = true;
+                } else {
+                    if (mapping[char]) {
+                        output += capitalizeNext ? mapping[char].toUpperCase() : mapping[char];
+                        capitalizeNext = false;
+                    } else {
+                        output += char;
+                    }
+                }
+            }
+            document.getElementById('output').innerText = output;
+        }
+    </script>
+</body>
+</html>
